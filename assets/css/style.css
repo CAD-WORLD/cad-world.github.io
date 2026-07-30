@@ -208,6 +208,28 @@ h2 { font-size: 26px; margin: 0 0 10px; letter-spacing: -0.01em; }
 .tax-list li b { font-weight: 600; }
 .tax-list li span.count { color: var(--text-dim); font-variant-numeric: tabular-nums; }
 
+/* ---------- Release note ---------- */
+.note {
+  max-width: var(--max);
+  margin: 30px auto 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+}
+.note-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 5px;
+}
+.note p { margin: 0; font-size: 14.5px; color: var(--text-dim); }
+.note p b { color: var(--text); }
+
 /* ---------- Figure block ---------- */
 .figure-block {
   max-width: 980px;
