@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CADWorld: A CAD-Centric Benchmark for Computer-Use Agents</title>
+<meta name="description" content="CADWorld is a GUI-based benchmark of 200 mechanical CAD tasks across 11 FreeCAD workflow categories, evaluating whether computer-use agents can complete spatial, precise, long-horizon engineering work.">
+<meta property="og:title" content="CADWorld: A CAD-Centric Benchmark for Computer-Use Agents">
+<meta property="og:description" content="200 tasks, 11 mechanical CAD workflow categories, artifact-grounded evaluation in FreeCAD. Best agent: 25.0% vs 87.0% human expert.">
+<meta property="og:image" content="https://cad-world.github.io/assets/img/task-gallery.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233B6EA8'/%3E%3Cpath d='M16 6l9 5v10l-9 5-9-5V11z' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M16 6v10m0 0l9-5m-9 5L7 11m9 5v10' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="7" fill="#3B6EA8"/><path d="M16 6l9 5v10l-9 5-9-5V11z" stroke="white" stroke-width="2"/><path d="M16 6v10m0 0l9-5m-9 5L7 11m9 5v10" stroke="white" stroke-width="2"/></svg>
+      CADWorld
+    </a>
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#taxonomy">Taxonomy</a>
+      <a href="#results">Results</a>
+      <a href="#case-study">Case Study</a>
+      <a href="#citation">Citation</a>
+      <a class="gh-link" href="https://github.com/CAD-WORLD/CAD-WORLD" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <h1>CADWorld: Benchmarking Computer-Use Agent for<br>Spatial, Precise, and Long-Horizon Computer-Aided Design</h1>
+
+    <p class="authors">
+      Zihan Dong<sup>1</sup> &nbsp;
+      Yuanzhe Liu<sup>1</sup> &nbsp;
+      Zhiyuan Ma<sup>2</sup> &nbsp;
+      Kaixin Li<sup>3</sup> &nbsp;
+      Qishi Zhan<sup>4</sup>
+    </p>
+    <p class="affiliations">
+      <sup>1</sup>Georgia Institute of Technology &nbsp;·&nbsp;
+      <sup>2</sup>North Carolina State University &nbsp;·&nbsp;
+      <sup>3</sup>National University of Singapore &nbsp;·&nbsp;
+      <sup>4</sup>Marquette University
+    </p>
+
+    <div class="links-row">
+      <a class="btn primary" href="https://github.com/CAD-WORLD/CAD-WORLD/blob/main/CADWORLD.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Paper
+      </a>
+      <a class="btn" href="https://github.com/CAD-WORLD/CAD-WORLD" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Code
+      </a>
+      <a class="btn" href="https://huggingface.co/Zihan1004/CADWorld" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+        VM Image
+      </a>
+      <a class="btn" href="#citation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c0-4.4 3.6-8 8-8"/><path d="M3 21V9a2 2 0 0 1 2-2h3"/><path d="M13 21c0-4.4 3.6-8 8-8"/><path d="M13 21V9a2 2 0 0 1 2-2h3"/></svg>
+        Cite
+      </a>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat"><div class="num">200</div><div class="label">Benchmark tasks</div></div>
+      <div class="stat"><div class="num">11</div><div class="label">Workflow categories</div></div>
+      <div class="stat"><div class="num">25.0%</div><div class="label">Best agent success</div></div>
+      <div class="stat"><div class="num">87.0%</div><div class="label">Human expert success</div></div>
+    </div>
+
+    <div class="hero-media">
+      <img src="assets/img/cadworld_hook.gif" alt="CADWorld FreeCAD task traces zooming from a 2 by 2 view out to a large benchmark grid" loading="eager">
+    </div>
+    <p class="hero-caption">CADWorld task traces spanning sketching, part modeling, assembly, CAM, FEM simulation, and technical documentation in FreeCAD.</p>
+  </div>
+</header>
+
+<section id="abstract">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Abstract</div>
+      <h2>A CAD-centric benchmark for computer-use agents</h2>
+    </div>
+    <div class="prose">
+      <p>Computer-use agents (CUA) are increasingly evaluated in realistic desktop and web environments, yet existing benchmarks largely measure navigation, form filling, information retrieval, and document manipulation. Mechanical computer-aided design (CAD) remains underexplored, even though it is a quintessential GUI-based professional task: success requires spatial grounding, exact dimensions and constraints, long-horizon interaction, and saved artifacts that remain valid under downstream checks.</p>
+      <p>We introduce <b>CADWorld</b>, a GUI-based environment and benchmark for evaluating whether general-purpose computer-use agents can complete realistic mechanical CAD workflows through screenshots and executable UI. CADWorld contains 200 tasks spanning 11 mechanical workflow categories &mdash; sketching, part modeling, assembly, computer-aided manufacturing (CAM), finite element method (FEM) simulation, material appearance, point-cloud conversion, macros, measurement, mesh conversion, and technical drawings. Each task is scored by execution-based artifact checks over saved FreeCAD files and auxiliary outputs.</p>
+      <p>On a 60-task coverage evaluation across all 11 categories, the strongest evaluated agent reaches <b>25.0% success</b> versus an <b>87.0% human expert</b> reference pass, with failures concentrated in long multi-object workflows and downstream engineering outputs. CADWorld exposes a substantial gap between current CUA and reliable, measurable professional mechanical design workflow.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="benchmark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why It's Hard</div>
+      <h2>CAD combines four demands general GUI agents rarely face together</h2>
+      <p>A single CAD task can involve repeated tool selection, parameter entry, geometry editing, and visual verification.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 2v10m0 0l9-5M12 12L3 7m9 5v10"/></svg></div>
+        <h3>Spatial understanding</h3>
+        <p>Infer 3D shape and geometric intent from 2D screenshots &mdash; coincidence, tangency, parallelism, profile closure, assembly motion, stock-to-target removal.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
+        <h3>Precise control</h3>
+        <p>Small click or drag errors can select the wrong entity or change a dimension, constraint, or solver output &mdash; causing failure even when the result looks close.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><path d="M7 7l10 10M17 7L7 17"/></svg></div>
+        <h3>Long-horizon execution</h3>
+        <p>Realistic workflows require dozens to hundreds of coordinated actions, with repeated mode switches and state-dependent recovery.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <h3>Artifact continuity</h3>
+        <p>The final file must stay traceable, measurable, diagnosable, and editable in the same CAD workflow a mechanical engineer uses &mdash; not just a plausible screenshot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="taxonomy">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Task Taxonomy</div>
+      <h2>200 tasks across 11 mechanical workflow categories</h2>
+      <p>Tasks are organized by CAD capability rather than by a single FreeCAD workbench, since real workflows combine several concepts at once.</p>
+    </div>
+    <div class="taxonomy-layout">
+      <img src="assets/img/task-distribution.png" alt="Donut chart of CADWorld's 200 tasks across 11 categories: Part 77, Sketch 63, Assembly 25, CAM 15, and 6 smaller categories">
+      <ul class="tax-list">
+        <li><b>Part / Part Design</b><span class="count">77 tasks · 38.5%</span></li>
+        <li><b>Sketch</b><span class="count">63 tasks · 31.5%</span></li>
+        <li><b>Assembly</b><span class="count">25 tasks · 12.5%</span></li>
+        <li><b>CAM</b><span class="count">15 tasks · 7.5%</span></li>
+        <li><b>Appearance</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>Point-cloud</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>FEM</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>Macro</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>Measurement</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>Mesh</b><span class="count">3 tasks · 1.5%</span></li>
+        <li><b>TechDraw</b><span class="count">2 tasks · 1.0%</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Task Gallery</div>
+      <h2>A sample of CADWorld tasks and agent traces</h2>
+    </div>
+    <div class="figure-block">
+      <img src="assets/img/task-gallery.jpg" alt="Grid of CADWorld task thumbnails and FreeCAD trajectory screenshots spanning all workflow categories" loading="lazy">
+      <p class="figure-caption">Target geometries (left) and FreeCAD trajectory screenshots (right) across CADWorld's sketch, part, assembly, CAM, FEM, appearance, and documentation tasks.</p>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Results</div>
+      <h2>Current agents remain far from reliable CAD automation</h2>
+      <p>Seven agents evaluated on a budget-controlled 60-task subset covering all 11 categories, capped at 100 GUI steps per task.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Success ↑</th>
+            <th>Finish ↑</th>
+            <th>Avg. Steps ↓</th>
+            <th>Avg. Output (K) ↓</th>
+            <th>Avg. Cost ($) ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td>Human Expert</td><td>87.0%</td><td>100%</td><td>26.5</td><td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr class="best">
+            <td>GPT5.4 (CUA)</td><td class="best">25.0%</td><td class="best">71.7%</td><td>87.6</td><td>20.1</td><td>1.40</td>
+          </tr>
+          <tr>
+            <td>Opus4.8 (CUA)</td><td>23.3%</td><td>55.0%</td><td>64.5</td><td>21.7</td><td>10.00</td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td><td>15.0%</td><td>38.3%</td><td>84.6</td><td>10.0</td><td>0.60</td>
+          </tr>
+          <tr>
+            <td>Holo 3.1</td><td>1.7%</td><td>31.7%</td><td>79.5</td><td>13.4</td><td>N/A</td>
+          </tr>
+          <tr>
+            <td>OpenCUA</td><td>0.0%</td><td>8.3%</td><td>89.0</td><td>8.9</td><td>N/A</td>
+          </tr>
+          <tr>
+            <td>MiniMax M3</td><td>0.0%</td><td>6.7%</td><td>97.6</td><td>7.9</td><td>0.20</td>
+          </tr>
+          <tr>
+            <td>Qwen3.6</td><td>0.0%</td><td>5.0%</td><td>97.0</td><td>9.4</td><td>N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Human success is a single-trial expert reference pass, not a population study. Finish is the share of runs with no normalized error recorded. Full token/cost breakdown by finished vs. successful runs is in the paper.</p>
+
+    <div style="height:34px"></div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Overall</th>
+            <th>Sketch</th>
+            <th>Part</th>
+            <th>Assembly</th>
+            <th>Mfg. / Sim.</th>
+            <th>CAD Utilities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="best">
+            <td>GPT5.4 (CUA)</td><td class="best">25.0%</td><td>16.7%</td><td class="best">33.5%</td><td>0.0%</td><td>0.0%</td><td>45.5%</td>
+          </tr>
+          <tr>
+            <td>Opus4.8 (CUA)</td><td>23.3%</td><td>16.7%</td><td>28.6%</td><td>0.0%</td><td>0.0%</td><td>45.5%</td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td><td>15.0%</td><td>5.6%</td><td>19.1%</td><td>0.0%</td><td>0.0%</td><td>36.4%</td>
+          </tr>
+          <tr>
+            <td>Holo 3.1</td><td>1.7%</td><td>0.0%</td><td>4.8%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+          </tr>
+          <tr>
+            <td>OpenCUA</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+          </tr>
+          <tr>
+            <td>MiniMax M3</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+          </tr>
+          <tr>
+            <td>Qwen3.6</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+          </tr>
+          <tr class="highlight">
+            <td>Human Expert</td><td>87.0%</td><td>88.9%</td><td>88.3%</td><td>84.0%</td><td>77.8%</td><td>88.2%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">No evaluated model solves an Assembly or Manufacturing/Simulation task in this coverage pass &mdash; long multi-object workflows and downstream engineering outputs remain the hardest groups.</p>
+  </div>
+</section>
+
+<section class="alt" id="case-study">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Case Study</div>
+      <h2>Where agents fail: a single additive prism</h2>
+      <p>Even a short, unambiguous task &mdash; one additive triangular prism with a specified side length and height &mdash; trips up every evaluated agent shown here.</p>
+    </div>
+    <div class="figure-block">
+      <img src="assets/img/case-study.png" alt="Comparison of a human expert's correct FreeCAD triangular prism against incorrect attempts by GPT5.4, Opus4.8, and Holo3.1">
+      <p class="figure-caption">The human expert produces the correct primitive and dimensions. GPT5.4, Opus4.8, and Holo 3.1 each build a plausible-looking but geometrically wrong shape &mdash; a triangular extrusion on a sketch, not an additive primitive, or missing the specified dimensions.</p>
+    </div>
+    <div class="prose" style="margin-top:28px;">
+      <p>Across the benchmark, failures are rarely superficial. Agents select the wrong workbench, leave a sketch underconstrained, enter a dimension in the wrong field, build visually similar but semantically wrong geometry, modify a supplied stock object, omit CAM path generation, or save the result to the wrong path. Because the saved artifact <i>is</i> the product in CAD workflows, CADWorld's all-checks-pass evaluator makes these small semantic errors visible where a purely visual judgment would miss them.</p>
+    </div>
+  </div>
+</section>
+
+<section id="citation">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Citation</div>
+      <h2>BibTeX</h2>
+    </div>
+    <div class="cite-box">
+      <button class="copy-btn" data-copy-target="#cite-text">Copy</button>
+      <pre id="cite-text">@misc{dong2026cadworld,
+  title  = {{CADWorld}: A {CAD}-Centric Benchmark for Spatial, Precise, and Long-Horizon Computer-Use Agents},
+  author = {Dong, Zihan and Liu, Yuanzhe and Ma, Zhiyuan and Li, Kaixin and Zhan, Qishi},
+  year   = {2026},
+  note   = {Manuscript},
+  url    = {https://github.com/CAD-WORLD/CAD-WORLD},
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="https://github.com/CAD-WORLD/CAD-WORLD/blob/main/CADWORLD.pdf" target="_blank" rel="noopener">Paper</a>
+      <a href="https://github.com/CAD-WORLD/CAD-WORLD" target="_blank" rel="noopener">Code</a>
+      <a href="https://huggingface.co/Zihan1004/CADWorld" target="_blank" rel="noopener">VM Image</a>
+      <a href="https://github.com/CAD-WORLD/CAD-WORLD/blob/main/README.md" target="_blank" rel="noopener">Docs</a>
+    </div>
+    <div>CADWorld is a living benchmark maintained by the CAD-WORLD organization. Contributions of new FreeCAD tasks, evaluators, and reproduced results are welcome.</div>
+    <div style="margin-top:10px;">&copy; 2026 CAD-WORLD</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
