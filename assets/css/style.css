@@ -15,20 +15,9 @@
   --max: 1080px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #12141b;
-    --bg-alt: #171a24;
-    --bg-card: #1b1f2a;
-    --text: #eef0f6;
-    --text-dim: #a6acbd;
-    --border: #2a2f3d;
-    --blue: #6f9cd6;
-    --blue-dark: #86aee2;
-    --green: #7fbb8d;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
-  }
-}
+/* Light theme only — the page renders identically regardless of the
+   viewer's OS colour-scheme preference. */
+:root { color-scheme: light; }
 
 * { box-sizing: border-box; }
 
@@ -52,63 +41,25 @@ body {
 a { color: var(--blue-dark); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ---------- Nav ---------- */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-.nav .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 17px;
-  color: var(--text);
-}
-.brand:hover { text-decoration: none; }
-.brand svg { width: 22px; height: 22px; }
-.nav-links {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
-}
-.nav-links a { color: var(--text-dim); }
-.nav-links a:hover { color: var(--text); text-decoration: none; }
-.nav-links .gh-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text);
-}
-.nav-toggle { display: none; }
-
-@media (max-width: 720px) {
-  .nav-links { display: none; }
-}
-
 /* ---------- Hero ---------- */
 .hero {
-  padding: 64px 0 40px;
+  padding: 56px 0 40px;
   text-align: center;
 }
 .hero h1 {
-  font-size: clamp(26px, 4vw, 40px);
-  line-height: 1.25;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  /* Sized so the two-line break in the markup holds without a third line. */
+  font-size: clamp(23px, 3.35vw, 36px);
+  line-height: 1.28;
   margin: 0 0 22px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+@media (max-width: 700px) {
+  /* Below this width the explicit <br> can no longer keep the title to two
+     lines, so let it wrap naturally instead. */
+  .hero h1 br { display: none; }
+  .hero h1 { text-wrap: balance; }
 }
 .authors {
   font-size: 15px;
