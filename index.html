@@ -6,7 +6,7 @@
 <title>CADWorld: A CAD-Centric Benchmark for Computer-Use Agents</title>
 <meta name="description" content="CADWorld is a GUI-based benchmark of 200 mechanical CAD tasks across 11 FreeCAD workflow categories, evaluating whether computer-use agents can complete spatial, precise, long-horizon engineering work.">
 <meta property="og:title" content="CADWorld: A CAD-Centric Benchmark for Computer-Use Agents">
-<meta property="og:description" content="200 tasks, 11 mechanical CAD workflow categories, artifact-grounded evaluation in FreeCAD. Best agent: 25.0% vs 87.0% human expert.">
+<meta property="og:description" content="200 tasks, 11 mechanical CAD workflow categories, artifact-grounded evaluation in FreeCAD. Best agent: 17.5% vs 87.0% human expert.">
 <meta property="og:image" content="https://cad-world.github.io/assets/img/task-gallery.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -63,7 +63,7 @@
     <div class="stat-strip">
       <div class="stat"><div class="num">200</div><div class="label">Benchmark tasks</div></div>
       <div class="stat"><div class="num">11</div><div class="label">Workflow categories</div></div>
-      <div class="stat"><div class="num">25.0%</div><div class="label">Best agent success</div></div>
+      <div class="stat"><div class="num">17.5%</div><div class="label">Best agent success</div></div>
       <div class="stat"><div class="num">87.0%</div><div class="label">Human expert success</div></div>
     </div>
 
@@ -83,7 +83,7 @@
     <div class="prose">
       <p>Computer-use agents (CUA) are increasingly evaluated in realistic desktop and web environments, yet existing benchmarks largely measure navigation, form filling, information retrieval, and document manipulation. Mechanical computer-aided design (CAD) remains underexplored, even though it is a quintessential GUI-based professional task: success requires spatial grounding, exact dimensions and constraints, long-horizon interaction, and saved artifacts that remain valid under downstream checks.</p>
       <p>We introduce <b>CADWorld</b>, a GUI-based environment and benchmark for evaluating whether general-purpose computer-use agents can complete realistic mechanical CAD workflows through screenshots and executable UI. CADWorld contains 200 tasks spanning 11 mechanical workflow categories &mdash; sketching, part modeling, assembly, computer-aided manufacturing (CAM), finite element method (FEM) simulation, material appearance, point-cloud conversion, macros, measurement, mesh conversion, and technical drawings. Each task is scored by execution-based artifact checks over saved FreeCAD files and auxiliary outputs.</p>
-      <p>On a 60-task coverage evaluation across all 11 categories, the strongest evaluated agent reaches <b>25.0% success</b> versus an <b>87.0% human expert</b> reference pass, with failures concentrated in long multi-object workflows and downstream engineering outputs. CADWorld exposes a substantial gap between current CUA and reliable, measurable professional mechanical design workflow.</p>
+      <p>Across seven current agents on the full 200-task benchmark, the strongest evaluated agent reaches <b>17.5% success</b> versus an <b>87.0% human expert</b> reference pass. Weaker agents often fail before producing a valid artifact at all, while stronger agents increasingly fail on structural, geometric, and construction-process requirements. CADWorld exposes a substantial gap between general GUI competence and reliable execution of persistent, verifiable engineering workflows.</p>
     </div>
   </div>
 </section>
@@ -146,7 +146,7 @@
 
     <div class="note">
       <div class="note-title">Release plan</div>
-      <p><b>v0 releases 60 tasks, covering all 11 categories.</b> The remaining tasks stay held back and will be rolling-released over time, so agents cannot be tuned against the full task set &mdash; a held-out remainder is what keeps the benchmark informative as models improve. Every number reported on this page is measured on the released v0 tasks.</p>
+      <p><b>v1 releases all 200 tasks, covering all 11 categories.</b> The earlier v0 release exposed a 60-task coverage slice; v1 supersedes it with the complete task set, task packages, and executable checks. Every number reported on this page is measured on the full 200-task v1 benchmark.</p>
     </div>
   </div>
 </section>
@@ -169,7 +169,7 @@
     <div class="section-head">
       <div class="eyebrow">Results</div>
       <h2>Current agents remain far from reliable CAD automation</h2>
-      <p>Seven agents evaluated on the 60-task v0 release, which covers all 11 categories, capped at 100 GUI steps per task.</p>
+      <p>Seven agents evaluated on the full 200-task v1 release, which covers all 11 categories, capped at 100 GUI steps per task.</p>
     </div>
 
     <div class="table-scroll">
@@ -179,7 +179,7 @@
             <th>Model</th>
             <th>Success ↑</th>
             <th>Finish ↑</th>
-            <th>Avg. Steps ↓</th>
+            <th>Avg. Actions ↓</th>
             <th>Avg. Output (K) ↓</th>
             <th>Avg. Cost ($) ↓</th>
           </tr>
@@ -189,30 +189,30 @@
             <td>Human Expert</td><td>87.0%</td><td>100%</td><td>26.5</td><td>&mdash;</td><td>&mdash;</td>
           </tr>
           <tr class="best">
-            <td>GPT5.4 (CUA)</td><td class="best">25.0%</td><td class="best">71.7%</td><td>87.6</td><td>20.1</td><td>1.40</td>
+            <td>GPT5.4 (CUA)</td><td class="best">17.5%</td><td class="best">62.5%</td><td>104.6</td><td>22.6</td><td>N/A</td>
           </tr>
           <tr>
-            <td>Opus4.8 (CUA)</td><td>23.3%</td><td>55.0%</td><td>64.5</td><td>21.7</td><td>10.00</td>
+            <td>Opus4.8 (CUA)</td><td>16.0%</td><td>49.5%</td><td>71.8</td><td>25.0</td><td>10.00</td>
           </tr>
           <tr>
-            <td>Kimi K2.6</td><td>15.0%</td><td>38.3%</td><td>84.6</td><td>10.0</td><td>0.60</td>
+            <td>Kimi K2.6</td><td>7.5%</td><td>20.5%</td><td>93.6</td><td>31.5</td><td>0.60</td>
           </tr>
           <tr>
-            <td>Holo 3.1</td><td>1.7%</td><td>31.7%</td><td>79.5</td><td>13.4</td><td>N/A</td>
+            <td>OpenCUA</td><td>1.5%</td><td>8.0%</td><td>90.2</td><td>8.6</td><td>N/A</td>
           </tr>
           <tr>
-            <td>OpenCUA</td><td>0.0%</td><td>8.3%</td><td>89.0</td><td>8.9</td><td>N/A</td>
+            <td>Holo 3.1</td><td>0.5%</td><td>21.5%</td><td>85.4</td><td>14.5</td><td>N/A</td>
           </tr>
           <tr>
-            <td>MiniMax M3</td><td>0.0%</td><td>6.7%</td><td>97.6</td><td>7.9</td><td>0.20</td>
+            <td>Qwen3.6</td><td>0.0%</td><td>3.0%</td><td>97.7</td><td>9.4</td><td>N/A</td>
           </tr>
           <tr>
-            <td>Qwen3.6</td><td>0.0%</td><td>5.0%</td><td>97.0</td><td>9.4</td><td>N/A</td>
+            <td>MiniMax M3</td><td>0.0%</td><td>2.5%</td><td>100.7</td><td>22.3</td><td>0.20</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="table-note">Human success is a single-trial expert reference pass, not a population study. Finish is the share of runs with no normalized error recorded. Full token/cost breakdown by finished vs. successful runs is in the paper.</p>
+    <p class="table-note">Human success is a single-trial expert reference pass, not a population study. Finish is the share of runs in which the agent completed the task, whether or not the saved artifact passed its checks. An agent may emit several actions per GUI step, so average actions can exceed the 100-step cap. Full token/cost breakdown by finished vs. successful runs is in the paper.</p>
 
     <div style="height:34px"></div>
 
@@ -231,25 +231,25 @@
         </thead>
         <tbody>
           <tr class="best">
-            <td>GPT5.4 (CUA)</td><td class="best">25.0%</td><td>16.7%</td><td class="best">33.5%</td><td>0.0%</td><td>0.0%</td><td>45.5%</td>
+            <td>GPT5.4 (CUA)</td><td class="best">17.5%</td><td class="best">12.7%</td><td class="best">22.1%</td><td class="best">16.0%</td><td>0.0%</td><td>35.3%</td>
           </tr>
           <tr>
-            <td>Opus4.8 (CUA)</td><td>23.3%</td><td>16.7%</td><td>28.6%</td><td>0.0%</td><td>0.0%</td><td>45.5%</td>
+            <td>Opus4.8 (CUA)</td><td>16.0%</td><td>7.9%</td><td>22.1%</td><td>8.0%</td><td>0.0%</td><td>47.1%</td>
           </tr>
           <tr>
-            <td>Kimi K2.6</td><td>15.0%</td><td>5.6%</td><td>19.1%</td><td>0.0%</td><td>0.0%</td><td>36.4%</td>
+            <td>Kimi K2.6</td><td>7.5%</td><td>1.6%</td><td>10.4%</td><td>0.0%</td><td>0.0%</td><td>35.3%</td>
           </tr>
           <tr>
-            <td>Holo 3.1</td><td>1.7%</td><td>0.0%</td><td>4.8%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+            <td>OpenCUA</td><td>1.5%</td><td>0.0%</td><td>3.9%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
           </tr>
           <tr>
-            <td>OpenCUA</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
-          </tr>
-          <tr>
-            <td>MiniMax M3</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+            <td>Holo 3.1</td><td>0.5%</td><td>0.0%</td><td>1.3%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
           </tr>
           <tr>
             <td>Qwen3.6</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
+          </tr>
+          <tr>
+            <td>MiniMax M3</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td>
           </tr>
           <tr class="highlight">
             <td>Human Expert</td><td>87.0%</td><td>88.9%</td><td>88.3%</td><td>84.0%</td><td>77.8%</td><td>88.2%</td>
@@ -257,7 +257,59 @@
         </tbody>
       </table>
     </div>
-    <p class="table-note">No evaluated model solves an Assembly or Manufacturing/Simulation task in this coverage pass &mdash; long multi-object workflows and downstream engineering outputs remain the hardest groups.</p>
+    <p class="table-note">No evaluated model solves a single Manufacturing/Simulation (CAM/FEM) task, and only GPT5.4 and Opus4.8 solve any Assembly task &mdash; long multi-object workflows and downstream engineering outputs remain the hardest groups.</p>
+
+    <div style="height:52px"></div>
+
+    <div class="section-head">
+      <div class="eyebrow">Ablation</div>
+      <h2>Terminal-only agents score no higher &mdash; and break the artifact</h2>
+      <p>The same seven models on a 50-task category-stratified subset, driving FreeCAD from a terminal instead of the GUI.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Terminal-only pass &#8593;</th>
+            <th>Dominant failure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="best">
+            <td>Opus4.8</td><td class="best">8/50 (16.0%)</td><td>Wrong document structure (22)</td>
+          </tr>
+          <tr>
+            <td>GPT5.4</td><td>7/50 (14.0%)</td><td>Wrong document structure (20)</td>
+          </tr>
+          <tr>
+            <td>MiniMax M3</td><td>6/50 (12.0%)</td><td>Wrong document structure (28)</td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td><td>4/50 (8.0%)</td><td>Wrong document structure (20)</td>
+          </tr>
+          <tr>
+            <td>Qwen3.6</td><td>3/50 (6.0%)</td><td>Wrong document structure (27)</td>
+          </tr>
+          <tr>
+            <td>Holo 3.1</td><td>2/50 (4.0%)</td><td>Wrong document structure (22)</td>
+          </tr>
+          <tr>
+            <td>OpenCUA 72B</td><td>0/50 (0.0%)</td><td>Claim done without saving (41)</td>
+          </tr>
+          <tr class="highlight">
+            <td>Total</td><td>30/350 (8.6%)</td><td>Wrong document structure (142)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Pass and failure entries are episode counts over the 50-task subset. Failure types follow the paper's F1&ndash;F11 taxonomy.</p>
+
+    <div class="note" style="margin-top:26px;">
+      <div class="note-title">Why the command line does not solve CAD</div>
+      <p>Terminal-only agents reach roughly the same pass rate as the GUI agents, but the failures move: <b>142 of the 320 failed terminal episodes are &ldquo;wrong document structure.&rdquo;</b> Driving FreeCAD from the command line pushes the model to build the model <i>by script</i>, so the saved project has no editable feature and constraint structure &mdash; an engineer cannot reopen it, inspect the construction process, diagnose a failed downstream check, and keep editing. In a CAD workflow the saved artifact is the product, so a scripted shape that looks right is still the wrong deliverable.</p>
+    </div>
   </div>
 </section>
 
@@ -286,12 +338,14 @@
     </div>
     <div class="cite-box">
       <button class="copy-btn" data-copy-target="#cite-text">Copy</button>
-      <pre id="cite-text">@misc{dong2026cadworld,
-  title  = {{CADWorld}: Benchmarking Computer-Use Agent for Spatial, Precise, and Long-Horizon Computer-Aided Design},
-  author = {Dong, Zihan and Liu, Yuanzhe and Ma, Zhiyuan and Zhan, Qishi and Kong, Dehan and Li, Guohao and Li, Kaixin},
-  year   = {2026},
-  note   = {Manuscript},
-  url    = {https://cad-world.github.io/},
+      <pre id="cite-text">@misc{dong2026cadworldcomputerusebenchmarklonghorizon,
+      title={CADWorld: Computer-Use Benchmark for Long-Horizon Computer-Aided Design}, 
+      author={Zihan Dong and Yuanzhe Liu and Zhiyuan Ma and Qishi Zhan and Dehan Kong and Guohao Li and Kaixin Li},
+      year={2026},
+      eprint={2609.16251},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2609.16251}, 
 }</pre>
     </div>
   </div>
