@@ -293,7 +293,10 @@ renderTask();
 const models=[
   {name:'GPT5.4',cua:true,scores:[17.5,12.7,22.1,16,0,35.3]},
   {name:'Opus4.8',cua:true,scores:[16,7.9,22.1,8,0,47.1]},
+  {name:'GLM-5.3-Flash',ext:true,scores:[12.5,9.5,14.3,8,0,35.3]},
+  {name:'DeepSeek-V4.1-Flash',ext:true,scores:[7.5,0,13,0,0,29.4]},
   {name:'Kimi K2.6',scores:[7.5,1.6,10.4,0,0,35.3]},
+  {name:'Qwen3.8-27B',ext:true,scores:[1.5,0,3.9,0,0,0]},
   {name:'OpenCUA',scores:[1.5,0,3.9,0,0,0]},
   {name:'Holo 3.1',scores:[0.5,0,1.3,0,0,0]},
   {name:'Qwen3.6',scores:[0,0,0,0,0,0]},
@@ -306,8 +309,8 @@ function renderResults(){
   const sorted=[...models].sort((a,b)=>b.scores[index]-a.scores[index]);
   $('results-rows').replaceChildren();
   sorted.forEach((model,i)=>{
-    const row=document.createElement('tr');if(model.scores[index]>0&&model.scores[index]===sorted[0].scores[index])row.className='best';
-    row.innerHTML=`<td><span class="rank">${String(i+1).padStart(2,'0')}</span>${model.name}${model.cua?'<span class="cua-tag">CUA</span>':''}</td><td><div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:${model.scores[index]}%"></div></div></td><td class="numeric">${model.scores[index].toFixed(1)}%</td>`;
+    const row=document.createElement('tr');row.className=[model.ext?'ext':'',model.scores[index]>0&&model.scores[index]===sorted[0].scores[index]?'best':''].join(' ').trim();
+    row.innerHTML=`<td><span class="rank">${String(i+1).padStart(2,'0')}</span>${model.name}${model.cua?'<span class="cua-tag">CUA</span>':''}${model.ext?'<span class="ext-tag">EXT</span>':''}</td><td><div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:${model.scores[index]}%"></div></div></td><td class="numeric">${model.scores[index].toFixed(1)}%</td>`;
     $('results-rows').append(row);
   });
   $('expert-number').innerHTML=human[index].toFixed(1)+'<span>%</span>';$('selected-count').textContent=counts[index];
