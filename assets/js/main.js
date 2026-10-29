@@ -291,8 +291,8 @@ $('slide-next').addEventListener('click', () => { activeSlide += 1; renderTask()
 renderTask();
 
 const models=[
-  {name:'Opus 5.5',tag:'subagent',ext:true,scores:[41.5,55.6,23.4,72,0,70.6]},
-  {name:'Sonnet 5.5',tag:'subagent',ext:true,scores:[33.5,44.4,22.1,60,0,41.2]},
+  {name:'Opus 5.5',ext:true,scores:[41.5,55.6,23.4,72,0,70.6]},
+  {name:'Sonnet 5.5',ext:true,scores:[33.5,44.4,22.1,60,0,41.2]},
   {name:'GPT-6-Astra',ext:true,scores:[33,30.2,26,64,5.6,58.8]},
   {name:'GPT5.4',tag:'CUA',scores:[17.5,12.7,22.1,16,0,35.3]},
   {name:'Opus4.8',tag:'CUA',scores:[16,7.9,22.1,8,0,47.1]},
