@@ -5,7 +5,7 @@
   <title>CADWorld: A CAD-Centric Benchmark for Computer-Use Agents</title>
   <meta name="description" content="CADWorld is a GUI-based benchmark of 200 mechanical CAD tasks across 11 FreeCAD workflow categories, evaluating whether computer-use agents can complete spatial, precise, long-horizon engineering work.">
   <meta property="og:title" content="CADWorld: A CAD-Centric Benchmark for Computer-Use Agents">
-  <meta property="og:description" content="200 tasks, 11 mechanical CAD workflow categories, artifact-grounded evaluation in FreeCAD. Best agent: 17.5% vs 87.0% human expert.">
+  <meta property="og:description" content="200 tasks, 11 mechanical CAD workflow categories, artifact-grounded evaluation in FreeCAD. Best agent: 41.5% vs 87.0% human expert.">
   <meta property="og:image" content="https://cad-world.github.io/assets/img/assembly.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- ?v= is a cache buster: GitHub Pages serves assets with max-age=600, so bump
        this whenever style.css/main.js change or returning visitors keep the stale copy. -->
-  <link rel="stylesheet" href="assets/css/style.css?v=9">
+  <link rel="stylesheet" href="assets/css/style.css?v=10">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,7 +37,7 @@
   </div>
   <p class="image-note">Reference task assets from CADWorld · Not agent-generated results</p>
 </section>
-<section class="numbers wrap" aria-label="Benchmark at a glance"><div><strong>200</strong><span>evaluation tasks</span></div><div><strong>11</strong><span>workflow categories</span></div><div><strong>10</strong><span>evaluated agents</span></div><div><strong>17.5<small>%</small></strong><span>best reported agent success</span></div></section>
+<section class="numbers wrap" aria-label="Benchmark at a glance"><div><strong>200</strong><span>evaluation tasks</span></div><div><strong>11</strong><span>workflow categories</span></div><div><strong>14</strong><span>evaluated agents</span></div><div><strong>41.5<small>%</small></strong><span>best evaluated agent success</span></div></section>
 <section class="section task-section" id="tasks" aria-labelledby="tasks-title"><div class="wrap">
 <div class="section-label"><span>01 / THE TASKS</span><span>FROM SKETCH TO SIMULATION</span></div>
 <div class="section-heading"><h2 id="tasks-title">Real work.<br><em>Many ways to get it wrong.</em></h2><p>Construct a feature. Connect an assembly. Generate a toolpath. Each task asks an agent to leave behind a specific engineering result.</p></div>
@@ -64,9 +64,9 @@
 </div></section>
 <section class="section results-section" id="results" aria-labelledby="results-title"><div class="wrap">
 <div class="section-label"><span>04 / RESULTS</span><span>PAPER · SEPT 2026 + EXTENDED RUNS · OCT 2026</span></div>
-<div class="section-heading"><h2 id="results-title">A wide gap.<br><em>A concrete place to start.</em></h2><p>The strongest evaluated agent passes 17.5% of the full benchmark under the reported setup. Explore how performance changes across workflows.</p></div>
+<div class="section-heading"><h2 id="results-title">A wide gap.<br><em>A concrete place to start.</em></h2><p>The strongest evaluated agent passes 41.5% of the full benchmark under the reported setup, against 87.0% for the expert reference. Explore how performance changes across workflows.</p></div>
 <div class="results-layout"><div class="leaderboard"><div class="results-controls"><label for="result-group">Task group</label><select id="result-group"><option value="overall">Overall · 200 tasks</option><option value="sketch">Sketch · 63 tasks</option><option value="part">Part · 77 tasks</option><option value="assembly">Assembly · 25 tasks</option><option value="mfg">CAM + FEM · 18 tasks</option><option value="utilities">CAD utilities · 17 tasks</option></select></div><div class="table-scroll"><table><caption class="sr-only">Published CADWorld success rates by evaluated agent</caption><thead><tr><th scope="col">AGENT</th><th scope="col">TASK SUCCESS</th><th scope="col" class="numeric">RATE</th></tr></thead><tbody id="results-rows"></tbody></table></div><p class="chart-note"><span class="legend-key paper" aria-hidden="true"></span>Paper results <span class="legend-key ext" aria-hidden="true"></span>Extended runs (EXT) · Bar scale: 0–100%</p></div><aside class="result-context"><span class="overline">EXPERT REFERENCE</span><div class="expert-number" id="expert-number">87.0<span>%</span></div><p>A single-trial expert reference pass, not an estimate of performance across engineers.</p><hr><dl><div><dt>Task count</dt><dd id="selected-count">200</dd></div><div><dt>GUI step budget</dt><dd>100 / task</dd></div><div><dt>Success criterion</dt><dd>All required checks</dd></div></dl><a href="https://arxiv.org/html/2609.16251v2" target="_blank" rel="noopener">Read the experiment details ↗</a></aside></div>
-<p class="result-footnote">Paper results are the authors’ reported results; EXT rows come from a follow-up evaluation sponsored by Yuanmu.ai and are not part of the paper. This is not a live leaderboard. Scores depend on the agent, harness, environment, and evaluation rules. Small workflow groups should be interpreted with their sample sizes.</p>
+<p class="result-footnote">Paper results are the authors’ reported results; EXT rows come from follow-up evaluations and are not part of the paper; the DeepSeek-V4.1-Flash, GLM-5.3-Flash, and Qwen3.8-27B runs were sponsored by Yuanmu.ai. This is not a live leaderboard. Scores depend on the agent, harness, environment, and evaluation rules. Small workflow groups should be interpreted with their sample sizes.</p>
 </div></section>
 <section class="section start-section" id="start" aria-labelledby="start-title"><div class="wrap">
 <div class="section-label"><span>05 / RUN CADWORLD</span><span>YOUR AGENT. THE SAME TASKS.</span></div>
@@ -89,7 +89,7 @@
 <section class="sponsor-band" aria-labelledby="sponsor-title"><div class="wrap sponsor-inner"><div><span class="overline" id="sponsor-title">SPONSORED BY</span><p>The extended evaluation of DeepSeek-V4.1-Flash, GLM-5.3-Flash, and Qwen3.8-27B was sponsored by Yuanmu.ai.</p></div><a href="https://yuanmu.ai" target="_blank" rel="noopener" aria-label="Yuanmu.ai (圆木智能)"><img src="assets/img/sponsors/yuanmu-ai.png" alt="Yuanmu.ai (圆木智能) logo" width="204" height="55" loading="lazy"></a></div></section>
 </main>
 <footer class="footer wrap"><a class="brand" href="#">CADWorld</a><p>Computer-Use Benchmark for Long-Horizon Computer-Aided Design</p><span class="footer-note">&copy; 2026 CAD-WORLD</span></footer>
-<script src="assets/js/main.js?v=9" defer></script>
+<script src="assets/js/main.js?v=10" defer></script>
 <dialog id="asset-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title">CADWorld task asset</h2><button id="dialog-close" aria-label="Close image viewer">✕</button></div><img id="dialog-image" alt=""><p id="dialog-caption"></p></dialog>
 <div id="status" class="sr-only" role="status" aria-live="polite"></div>
 </body>

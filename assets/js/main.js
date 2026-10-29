@@ -291,9 +291,13 @@ $('slide-next').addEventListener('click', () => { activeSlide += 1; renderTask()
 renderTask();
 
 const models=[
-  {name:'GPT5.4',cua:true,scores:[17.5,12.7,22.1,16,0,35.3]},
-  {name:'Opus4.8',cua:true,scores:[16,7.9,22.1,8,0,47.1]},
+  {name:'Opus 5.5',tag:'subagent',ext:true,scores:[41.5,55.6,23.4,72,0,70.6]},
+  {name:'Sonnet 5.5',tag:'subagent',ext:true,scores:[33.5,44.4,22.1,60,0,41.2]},
+  {name:'GPT-6-Astra',ext:true,scores:[33,30.2,26,64,5.6,58.8]},
+  {name:'GPT5.4',tag:'CUA',scores:[17.5,12.7,22.1,16,0,35.3]},
+  {name:'Opus4.8',tag:'CUA',scores:[16,7.9,22.1,8,0,47.1]},
   {name:'GLM-5.3-Flash',ext:true,scores:[12.5,9.5,14.3,8,0,35.3]},
+  {name:'GPT5.4',tag:'API · raw mode',ext:true,scores:[7.5,4.8,9.1,0,0,29.4]},
   {name:'DeepSeek-V4.1-Flash',ext:true,scores:[7.5,0,13,0,0,29.4]},
   {name:'Kimi K2.6',scores:[7.5,1.6,10.4,0,0,35.3]},
   {name:'Qwen3.8-27B',ext:true,scores:[1.5,0,3.9,0,0,0]},
@@ -306,11 +310,14 @@ const groups=['overall','sketch','part','assembly','mfg','utilities'];
 const human=[87,88.9,88.3,84,77.8,88.2],counts=[200,63,77,25,18,17];
 function renderResults(){
   const index=groups.indexOf($('result-group').value);
-  const sorted=[...models].sort((a,b)=>b.scores[index]-a.scores[index]);
+  const val=m=>m.scores[index];
+  const sorted=[...models].sort((a,b)=>(val(b)??-1)-(val(a)??-1));
+  const top=val(sorted[0]);
   $('results-rows').replaceChildren();
   sorted.forEach((model,i)=>{
-    const row=document.createElement('tr');row.className=[model.ext?'ext':'',model.scores[index]>0&&model.scores[index]===sorted[0].scores[index]?'best':''].join(' ').trim();
-    row.innerHTML=`<td><span class="rank">${String(i+1).padStart(2,'0')}</span>${model.name}${model.cua?'<span class="cua-tag">CUA</span>':''}${model.ext?'<span class="ext-tag">EXT</span>':''}</td><td><div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:${model.scores[index]}%"></div></div></td><td class="numeric">${model.scores[index].toFixed(1)}%</td>`;
+    const score=val(model),row=document.createElement('tr');
+    row.className=[model.ext?'ext':'',score>0&&score===top?'best':''].join(' ').trim();
+    row.innerHTML=`<td><span class="rank">${String(i+1).padStart(2,'0')}</span>${model.name}${model.tag?`<span class="cua-tag">${model.tag}</span>`:''}${model.ext?'<span class="ext-tag">EXT</span>':''}</td><td><div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:${score??0}%"></div></div></td><td class="numeric">${score==null?'—':score.toFixed(1)+'%'}</td>`;
     $('results-rows').append(row);
   });
   $('expert-number').innerHTML=human[index].toFixed(1)+'<span>%</span>';$('selected-count').textContent=counts[index];
