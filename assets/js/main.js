@@ -297,7 +297,6 @@ const models=[
   {name:'GPT5.4',scores:[17.5,12.7,22.1,16,0,35.3]},
   {name:'Opus4.8',scores:[16,7.9,22.1,8,0,47.1]},
   {name:'GLM-5.3-Flash',ext:true,scores:[12.5,9.5,14.3,8,0,35.3]},
-  {name:'GPT5.4',ext:true,scores:[7.5,4.8,9.1,0,0,29.4]},
   {name:'DeepSeek-V4.1-Flash',ext:true,scores:[7.5,0,13,0,0,29.4]},
   {name:'Kimi K2.6',scores:[7.5,1.6,10.4,0,0,35.3]},
   {name:'Qwen3.8-27B',ext:true,scores:[1.5,0,3.9,0,0,0]},
